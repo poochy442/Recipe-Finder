@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Recipe Finder</string>
+    <string name="main_text">What would you like to eat?</string>
+    <string name="main_edit_text">Food name</string>
+    <string name="base_api">https://api.spoonacular.com/recipes/search?</string>
+    <string name="image_api">https://spoonacular.com/recipeImages/</string>
+    <string name="example_image_desc">Example food image</string>
+    <string name="search_button_text">Search</string>
+</resources>
