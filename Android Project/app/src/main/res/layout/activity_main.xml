@@ -9,6 +9,15 @@
     tools:context=".MainActivity"
     >
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
     <LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
@@ -48,6 +57,7 @@
             android:layout_height="wrap_content"
             android:text="@string/search_button_text"
             android:background="@color/colorAccent"
+            android:onClick=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
