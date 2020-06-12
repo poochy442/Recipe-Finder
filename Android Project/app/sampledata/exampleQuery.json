@@ -1,0 +1,101 @@
+{
+    "results": [
+        {
+            "id": 723984,
+            "title": "Cabbage Salad with Peanuts",
+            "readyInMinutes": 15,
+            "servings": 2,
+            "sourceUrl": "http://naturallyella.com/cabbage-salad-with-peanuts/",
+            "openLicense": 0,
+            "image": "cabbage-salad-with-peanuts-723984.jpg"
+        },
+        {
+            "id": 809898,
+            "title": "Strawberry & Mango Chopped Spinach Quinoa Salad with Sesame-Lime Vinaigrette",
+            "readyInMinutes": 25,
+            "servings": 4,
+            "sourceUrl": "http://www.ambitiouskitchen.com/2015/05/strawberry-mango-chopped-spinach-quinoa-salad-with-sesame-lime-vinaigrette/",
+            "openLicense": 0,
+            "image": "strawberry-mango-chopped-spinach-quinoa-salad-with-sesame-lime-vinaigrette-809898.jpg"
+        },
+        {
+            "id": 494212,
+            "title": "CSA Salad",
+            "readyInMinutes": 10,
+            "servings": 2,
+            "sourceUrl": "http://www.loveandoliveoil.com/2012/07/csa-salad.html",
+            "openLicense": 0,
+            "image": "CSA-Salad-494212.jpg"
+        },
+        {
+            "id": 558652,
+            "title": "Broccoli Slaw Chicken Salad",
+            "readyInMinutes": 7,
+            "servings": 1,
+            "sourceUrl": "http://www.busybuthealthy.com/broccoli-slaw-chicken-salad/",
+            "openLicense": 0,
+            "image": "Broccoli-Slaw-Chicken-Salad-558652.jpg"
+        },
+        {
+            "id": 620545,
+            "title": "Crowd-Pleasing Vegan Caesar Salad",
+            "readyInMinutes": 80,
+            "servings": 5,
+            "sourceUrl": "http://ohsheglows.com/2014/11/24/crowd-pleasing-vegan-caesar-salad/",
+            "openLicense": 0,
+            "image": "Crowd-Pleasing-Vegan-Caesar-Salad-620545.jpg"
+        },
+        {
+            "id": 979379,
+            "title": "Chickpea Tuna Salad",
+            "readyInMinutes": 5,
+            "servings": 2,
+            "sourceUrl": "https://www.skinnytaste.com/chickpea-tuna-salad/",
+            "openLicense": 0,
+            "image": "chickpea-tuna-salad-979379.jpg"
+        },
+        {
+            "id": 548402,
+            "title": "Moroccan Eggplant Salad – 2 Points",
+            "readyInMinutes": 45,
+            "servings": 4,
+            "sourceUrl": "http://www.laaloosh.com/2012/10/22/moroccan-eggplant-salad-recipe/",
+            "openLicense": 0,
+            "image": "Moroccan-Eggplant-Salad--2-Points-548402.jpg"
+        },
+        {
+            "id": 608922,
+            "title": "Raw Kale Salad with Berries",
+            "readyInMinutes": 15,
+            "servings": 4,
+            "sourceUrl": "http://cafejohnsonia.com/2014/08/raw-kale-salad-berries.html",
+            "openLicense": 0,
+            "image": "Raw-Kale-Salad-with-Berries-608922.jpg"
+        },
+        {
+            "id": 509724,
+            "title": "Kale Salad with Bacon and Caramelized Onions {Gluten Free and Low Carb}",
+            "readyInMinutes": 60,
+            "servings": 2,
+            "sourceUrl": "http://www.foodfaithfitness.com/kale-salad-with-bacon-and-caramelized-onions/",
+            "openLicense": 0,
+            "image": "Kale-Salad-with-Bacon-and-Caramelized-Onions-{Gluten-Free-and-Low-Carb}-509724.jpg"
+        },
+        {
+            "id": 506474,
+            "title": "Orange Ginger Tuna Salad",
+            "readyInMinutes": 45,
+            "servings": 1,
+            "sourceUrl": "http://greenlitebites.com/2011/12/15/orange-ginger-tuna-salad/",
+            "openLicense": 0,
+            "image": "Orange-Ginger-Tuna-Salad-506474.jpg"
+        }
+    ],
+    "baseUri": "https://spoonacular.com/recipeImages/",
+    "offset": 0,
+    "number": 10,
+    "totalResults": 21095,
+    "processingTimeMs": 315,
+    "expires": 1591959601021,
+    "isStale": false
+}

@@ -4,9 +4,9 @@
     <string name="main_edit_text">Food name</string>
     <string name="base_api">https://api.spoonacular.com/recipes/search?</string>
     <string name="image_api">https://spoonacular.com/recipeImages/</string>
+    <string name="api_key">dfb5a2eda1b34604bc94d67d21e6d43e</string>
     <string name="example_image_desc">Example food image</string>
     <string name="search_button_text">Search</string>
-    <string name="title_activity_search">SearchActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
