@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
@@ -20,7 +20,7 @@ public class SearchFragment extends Fragment {
 
     ImageView exampleImage;
     Button searchButton;
-    EditText searchText;
+    TextInputLayout searchText;
     final String[] exampleImages = {
             "Blue-Cheese-Burgers-246009.jpg",
             "Mexican-Street-Corn-Nachos-671890.jpg",
@@ -59,7 +59,8 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                String searchString = searchText.getText().toString();
+
+                String searchString = searchText.getEditText().getText().toString();
                 ResultFragment rf = new ResultFragment();
 
                 Log.d("Search/onClick", "Sending value: " + searchString);
@@ -68,6 +69,7 @@ public class SearchFragment extends Fragment {
                 rf.setArguments(args);
 
                 transaction.replace(R.id.main_content, rf);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });

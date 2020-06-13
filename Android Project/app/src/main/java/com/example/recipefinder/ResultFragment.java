@@ -31,7 +31,9 @@ import java.util.List;
 
 public class ResultFragment extends Fragment {
 
-    List<Recipe> recipeList;
+    public static final int recipeAmount = 10;
+    RequestQueue queue;
+    ArrayList<Recipe> recipeList;
     LinearLayout linearLayout;
     String searchValue;
 
@@ -40,22 +42,22 @@ public class ResultFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.result_fragment, container, false);
 
         // Set up variables
-        linearLayout = rootView.findViewById(R.id.search_scroll_linear);
+        linearLayout = rootView.findViewById(R.id.result_layout);
         recipeList = new ArrayList<>();
 
         Bundle args = getArguments();
         if(args != null)
             searchValue = args.getString("searchValue");
-        Log.d("Result/populate", "Received value: " + searchValue);
+        Log.d("Result/create", "Received value: " + searchValue);
 
-        populateView(rootView);
+        populateRecipes();
 
         return rootView;
     }
 
-    public void populateView(View root){
+    public void populateRecipes(){
         // Set up Volley to send HttpRequests
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        queue = Volley.newRequestQueue(getContext());
         String apiKey = getString(R.string.api_key);
         String url = getString(R.string.base_api)
                 + "query=" + searchValue
@@ -83,9 +85,7 @@ public class ResultFragment extends Fragment {
                                 String title = o.getString("title"), sourceURL = o.getString("sourceUrl"), imageURL = o.getString("image");
                                 recipeList.add(new Recipe(title, sourceURL, imageURL));
                             }
-
                             updateView(recipeList);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -98,52 +98,43 @@ public class ResultFragment extends Fragment {
                     }
                 });
 
+
         queue.add(searchRequest);
     }
 
-    private void updateView(List<Recipe> recipeList){
+    private void updateView(final List<Recipe> recipeList){
         for(int i = 0; i < recipeList.size(); i++){
-            // Create a ViewGroup
-            LinearLayout l = new LinearLayout(getContext());
-            l.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            l.setOrientation(LinearLayout.HORIZONTAL);
+            LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+            LinearLayout l = (LinearLayout) layoutInflater.inflate(R.layout.list_row_layout, null);
+            Recipe recipe = recipeList.get(i);
+            final int index = i;
 
-            // Create TextView
-            TextView t = new TextView(getContext());
-            t.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            final Recipe r = recipeList.get(i);
-            t.setText(r.title);
+            // Load ImageView
+            ImageView image = l.findViewById(R.id.row_image);
+            Picasso.get()
+                    .load("https://spoonacular.com/recipeImages/" + recipe.imageURL)
+                    .resize(125, 125)
+                    .centerCrop()
+                    .into(image);
+
+            // Load TextView
+            TextView text = l.findViewById(R.id.row_text);
+            text.setText(recipe.title);
 
             // Make the TextView clickable, linked to recipe
-            t.setOnClickListener(new View.OnClickListener() {
+            text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String action = Intent.ACTION_VIEW;
-                    Uri uri = Uri.parse(r.sourceURL);
+                    Uri uri = Uri.parse(recipeList.get(index).sourceURL);
 
                     Intent intent = new Intent(action, uri);
                     startActivity(intent);
                 }
             });
-            t.setLinksClickable(true);
-
-            // Create ImageView
-            ImageView image = new ImageView(getContext());
-            image.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            // Load image into ImageView with Picasso
-            Picasso.get()
-                    .load(getString(R.string.image_api) + r.imageURL)
-                    .resize(125, 125)
-                    .centerCrop()
-                    .into(image);
-
-            // Add view to LinearLayout and that to the ScrollView
-            l.addView(t);
-            l.addView(image);
+            text.setLinksClickable(true);
 
             linearLayout.addView(l);
         }
     }
-
 }

@@ -3,14 +3,9 @@
     <!-- Colors -->
     <color name="colorPrimary">#121212</color>
     <color name="colorPrimaryVariant">#1F1B24</color>
-    <color name="colorOnPrimary">#101010</color>
+    <color name="colorOnPrimary">#DDDDDD</color>
     <color name="colorSecondary">#1010BF</color>
     <color name="colorSecondaryVariant">#000060</color>
-    <color name="colorOnSecondary">#777777</color>
-    
-    <color name="colorBackground">@color/colorPrimary</color>
-    <color name="colorOnBackground">@color/colorOnPrimary</color>
-
-    <color name="colorSurface">@color/colorPrimary</color>
-    <color name="colorOnSurface">@color/colorOnPrimary</color>
+    <color name="colorOnSecondary">#404040</color>
+    <color name="colorDivider">#22222222</color>
 </resources>
