@@ -1,102 +1,78 @@
 package com.example.recipefinder;
 
 
-import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class RecipeAdapter implements ListAdapter {
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
 
     ArrayList<Recipe> recipes;
-    Context context;
+    final private RecipeAdapter.OnListItemClickListener onListItemClickListener;
 
-    public RecipeAdapter(Context context, ArrayList<Recipe> recipes) {
+    RecipeAdapter(ArrayList<Recipe> recipes, OnListItemClickListener onListItemClickListener){
         this.recipes = recipes;
-        this.context = context;
+        this.onListItemClickListener = onListItemClickListener;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.list_row_layout, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public boolean areAllItemsEnabled() {
-        return false;
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Recipe r = recipes.get(position);
+
+        Picasso.get()
+                .load("https://spoonacular.com/recipeImages/" + r.imageURL)
+                .resize(125, 125)
+                .centerCrop()
+                .into(holder.imageView);
+
+        holder.textView.setText(r.title);
     }
 
     @Override
-    public boolean isEnabled(int position) {
-        return true;
-    }
-
-    @Override
-    public void registerDataSetObserver(DataSetObserver observer) {
-    }
-
-    @Override
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-    }
-
-    @Override
-    public int getCount() {
+    public int getItemCount() {
         return recipes.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return position;
-    }
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+        ImageView imageView;
+        TextView textView;
 
-    @Override
-    public boolean hasStableIds() {
-        return false;
-    }
+        ViewHolder(View viewItem){
+            super(viewItem);
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Recipe recipe = recipes.get(position);
-
-        if(convertView == null){
-            LayoutInflater layoutInflater = LayoutInflater.from(context);
-            convertView = layoutInflater.inflate(R.layout.list_row_layout, null);
-
-            // Load ImageView
-            ImageView image = convertView.findViewById(R.id.row_image);
-            Picasso.get()
-                    .load("https://spoonacular.com/recipeImages/" + recipe.imageURL)
-                    .resize(125, 125)
-                    .centerCrop()
-                    .into(image);
-
-            // Load TextView
-            TextView text = convertView.findViewById(R.id.row_text);
-            text.setText(recipe.title);
+            // Load Views
+            imageView = viewItem.findViewById(R.id.row_image);
+            textView = viewItem.findViewById(R.id.row_text);
+            itemView.setOnClickListener(this);
         }
-        return convertView;
+
+        @Override
+        public void onClick(View v){
+            onListItemClickListener.onListItemClick(recipes.get(getAdapterPosition()));
+        }
+
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return position;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return recipes.size();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
+    public interface OnListItemClickListener{
+        public void onListItemClick(Recipe clickedRecipe);
     }
 }
+

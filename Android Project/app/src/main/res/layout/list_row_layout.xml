@@ -3,21 +3,28 @@
     android:id="@+id/row_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_gravity="center"
-    android:background="@color/colorOnSecondary"
+    android:elevation="2dp"
+    style="@style/AppTheme.Result"
     >
     <ImageView
         android:id="@+id/row_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@color/colorPrimary"
+        android:layout_margin="2dp"
+        android:elevation="4dp"
         />
     <TextView
         android:id="@+id/row_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:layout_marginStart="2dp"
+        android:textSize="22sp"
         android:textAppearance="?attr/textAppearanceCaption"
+        android:text="@string/main_edit_text"
         />
 </LinearLayout>

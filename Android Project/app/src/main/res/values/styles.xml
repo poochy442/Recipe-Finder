@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="elevationOverlayEnabled">true</item>
     </style>
 
@@ -14,6 +15,11 @@
 
     <!-- Result Fragment Theme -->
     <style name="AppTheme.Result">
+
+    </style>
+
+    <!-- Settings Fragment Theme -->
+    <style name="AppTheme.Settings">
 
     </style>
 

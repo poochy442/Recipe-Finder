@@ -8,13 +8,15 @@
     <!-- Top Bar -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        >
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppPar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/app_name"
-            app:menu="@menu/top_app_bar"
+            app:menu="@menu/top_app_menu"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />
     </com.google.android.material.appbar.AppBarLayout>
@@ -44,6 +46,7 @@
             android:id="@+id/main_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:elevation="2dp"
             >
         </FrameLayout>
 

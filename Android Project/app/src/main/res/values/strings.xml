@@ -20,4 +20,14 @@
     <string name="content_description_navigate">Content Description</string>
     <string name="night_to_day_text">Night to Day</string>
     <string name="content_description_night_to_day">Turn the theme from night to day</string>
+    <string name="settings_text">Settings</string>
+    <string name="content_description_settings">Go to the settings menu</string>
+    <string name="day_night_options_text">Day/Night options</string>
+    <string name="number_hint_text">Number of recipes pr. search</string>
+    <string name="number_label_text">Number of recipes</string>
+
+    <string-array name="day_night_options">
+        <item>Light Mode</item>
+        <item>Dark Mode</item>
+    </string-array>
 </resources>

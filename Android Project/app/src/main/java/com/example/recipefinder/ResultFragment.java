@@ -1,17 +1,22 @@
 package com.example.recipefinder;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,18 +25,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ResultFragment extends Fragment {
+public class ResultFragment extends Fragment implements RecipeAdapter.OnListItemClickListener {
 
     public static final int recipeAmount = 10;
+    RecipeAdapter.OnListItemClickListener listener = this;
+    RecipeAdapter recipeAdapter;
+    RecyclerView recyclerView;
     RequestQueue queue;
     ArrayList<Recipe> recipeList;
     LinearLayout linearLayout;
@@ -43,28 +49,43 @@ public class ResultFragment extends Fragment {
 
         // Set up variables
         linearLayout = rootView.findViewById(R.id.result_layout);
-        recipeList = new ArrayList<>();
 
+        // Create RecyclerView
+        recyclerView = rootView.findViewById(R.id.result_recycler);
+        recyclerView.hasFixedSize();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+        Drawable divider = ResourcesCompat.getDrawable(getResources(), R.drawable.divider, null);
+        itemDecoration.setDrawable(divider);
+        recyclerView.addItemDecoration(itemDecoration);
+
+        // Populate RecipeList
+        recipeList = new ArrayList<>();
         Bundle args = getArguments();
         if(args != null)
             searchValue = args.getString("searchValue");
         Log.d("Result/create", "Received value: " + searchValue);
+        populateRecipes(rootView);
 
-        populateRecipes();
+        recipeAdapter = new RecipeAdapter(recipeList, listener);
+        recyclerView.setAdapter(recipeAdapter);
 
         return rootView;
     }
 
-    public void populateRecipes(){
+    public void populateRecipes(View rootView){
         // Set up Volley to send HttpRequests
         queue = Volley.newRequestQueue(getContext());
         String apiKey = getString(R.string.api_key);
+        SharedPreferences sp = rootView.getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        int number = sp.getInt("number", 10);
         String url = getString(R.string.base_api)
                 + "query=" + searchValue
-                + "&number=10"
+                + "&number=" + number
                 + "&InstructionsRequired=true"
                 + "&apiKey=" + apiKey;
-        // TODO: Check for values instead of hard-coded
 
         // Consume web service to get Recipes
         JsonObjectRequest searchRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -85,7 +106,9 @@ public class ResultFragment extends Fragment {
                                 String title = o.getString("title"), sourceURL = o.getString("sourceUrl"), imageURL = o.getString("image");
                                 recipeList.add(new Recipe(title, sourceURL, imageURL));
                             }
-                            updateView(recipeList);
+
+                            // Set adapter
+                            recipeAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -102,39 +125,12 @@ public class ResultFragment extends Fragment {
         queue.add(searchRequest);
     }
 
-    private void updateView(final List<Recipe> recipeList){
-        for(int i = 0; i < recipeList.size(); i++){
-            LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-            LinearLayout l = (LinearLayout) layoutInflater.inflate(R.layout.list_row_layout, null);
-            Recipe recipe = recipeList.get(i);
-            final int index = i;
+    @Override
+    public void onListItemClick(Recipe clickedRecipe) {
+        String action = Intent.ACTION_VIEW;
+        Uri uri = Uri.parse(clickedRecipe.sourceURL);
 
-            // Load ImageView
-            ImageView image = l.findViewById(R.id.row_image);
-            Picasso.get()
-                    .load("https://spoonacular.com/recipeImages/" + recipe.imageURL)
-                    .resize(125, 125)
-                    .centerCrop()
-                    .into(image);
-
-            // Load TextView
-            TextView text = l.findViewById(R.id.row_text);
-            text.setText(recipe.title);
-
-            // Make the TextView clickable, linked to recipe
-            text.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String action = Intent.ACTION_VIEW;
-                    Uri uri = Uri.parse(recipeList.get(index).sourceURL);
-
-                    Intent intent = new Intent(action, uri);
-                    startActivity(intent);
-                }
-            });
-            text.setLinksClickable(true);
-
-            linearLayout.addView(l);
-        }
+        Intent intent = new Intent(action, uri);
+        startActivity(intent);
     }
 }
