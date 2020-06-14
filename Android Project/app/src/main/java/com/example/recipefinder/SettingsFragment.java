@@ -8,9 +8,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
@@ -28,39 +25,7 @@ public class SettingsFragment extends Fragment {
     }
 
     public void populateView(final View rootView){
-        // Setup Day/Night layout
-        Spinner spinner = (Spinner) rootView.findViewById(R.id.settings_day_night_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.day_night_options, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Store settings change
-                SharedPreferences sp = rootView.getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-                String s = sp.getString("Day/Night", null);
-                ;
-                if (s != null && s.equals("light")) {
-                    s = "dark";
-                } else {
-                    s = "light";
-                }
-
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("Day/Night", s);
-                editor.apply();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
-            }
-        });
-
         final SharedPreferences sp = rootView.getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-        String string = sp.getString("Day/Night", null);
-        if(string.equals("dark"))
-            spinner.setSelection(1);
 
         // Setup number layout
         TextInputLayout text = rootView.findViewById(R.id.setting_number_text_input);

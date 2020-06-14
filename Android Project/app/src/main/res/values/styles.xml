@@ -8,6 +8,10 @@
         <item name="elevationOverlayEnabled">true</item>
     </style>
 
+    <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorSecondary">@color/colorSecondary</item>
+    </style>
+
     <!-- Search Fragment Theme -->
     <style name="AppTheme.Search">
 
